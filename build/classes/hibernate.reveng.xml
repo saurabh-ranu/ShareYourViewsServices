@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="category"
+		match-catalog="shareyourviewdb">
+	</table-filter>
+	<table-filter match-name="comment"
+		match-catalog="shareyourviewdb">
+	</table-filter>
+	<table-filter match-name="post" match-catalog="shareyourviewdb"></table-filter>
+	<table-filter match-name="post_category"
+		match-catalog="shareyourviewdb">
+	</table-filter>
+	<table-filter match-name="user" match-catalog="shareyourviewdb"></table-filter>
+	<table-filter match-name="user_profile"
+		match-catalog="shareyourviewdb">
+	</table-filter>
+	<table-filter match-name="userrole"
+		match-catalog="shareyourviewdb">
+	</table-filter>
+</hibernate-reverse-engineering>
