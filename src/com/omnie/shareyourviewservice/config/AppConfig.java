@@ -14,7 +14,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @ImportResource({ "WEB-INF/config/applicationContext.xml" } )
 public class AppConfig  {
-	
+	 
 	
 	
 	@Bean
