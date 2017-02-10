@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -20,6 +22,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 	
 	@Autowired
 	private ClientDetailsService clientDetailsService;
@@ -36,12 +41,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	}
 
 	
+	 @Autowired
+	    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+	        authenticationManagerBuilder
+	                .userDetailsService(userDetailsService);
+	                //.passwordEncoder(new BCryptPasswordEncoder());
+	    }
+	 
+	 
+	/*
 	@Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
 		 auth.inMemoryAuthentication()
 	        .withUser("bill").password("abc123").roles("ADMIN").and()
 	        .withUser("bob").password("abc123").roles("USER");
-    }
+    }*/
     
 
 	@Override

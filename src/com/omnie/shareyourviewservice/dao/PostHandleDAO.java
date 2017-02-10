@@ -15,4 +15,5 @@ public interface PostHandleDAO {
 	public List<Post> getAllPostByUser(String userid);
 	public User getUser(String userid);
 
+
 }

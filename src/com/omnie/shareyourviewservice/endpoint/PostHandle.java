@@ -53,7 +53,7 @@ public class PostHandle {
 		return postHandleService.getAllPostBean();
 	}*/
 	
-
+    
 	@RequestMapping(value = "/getAllPost", method = RequestMethod.GET,produces={"application/xml", "application/json"})
 	public  @ResponseBody JaxbListWrapper<PostBean> getAllPost(){
 		//return postHandleService.getAllPostBean();

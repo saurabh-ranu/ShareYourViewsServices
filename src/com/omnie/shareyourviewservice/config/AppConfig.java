@@ -32,6 +32,8 @@ public class AppConfig  {
 	   resolver.setDefaultLocale(new Locale("en"));
 	   return resolver;
 	}
+
+	
 	
 	
 	
