@@ -85,6 +85,7 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 		Query query = getSession().createQuery("from com.omnie.shareyourviewservice.hibermapping.User where user_id =:user_id");
 		List<User> userList = query.setParameter("user_id", userid).list() ;
 		// TODO Auto-generated method stub
+		System.out.println("userList "+userList);
 		return userList.size()>0?userList.get(0):null;
 	}
 
