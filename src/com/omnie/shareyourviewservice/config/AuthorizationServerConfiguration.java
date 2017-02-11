@@ -39,7 +39,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
     	 JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-         converter.setSigningKey("123");
+    	 converter.setSigningKey("123");
          return converter;
     }
 
@@ -71,7 +71,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
             .withClient("normal-app")
-                .authorizedGrantTypes("password", "authorization_code", "implicit","refresh-token")
+                .authorizedGrantTypes("password", "authorization_code", "implicit","refresh_token")
                 .authorities("ROLE_CLIENT")
                 .scopes("read", "write")
                 .resourceIds(resourceId)
@@ -80,7 +80,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 
         .and()
             .withClient("trusted-app")
-                .authorizedGrantTypes("client_credentials", "password", "implicit","refresh-token")
+                .authorizedGrantTypes("client_credentials", "password", "implicit","refresh_token")
                 .authorities("ROLE_TRUSTED_CLIENT")
                 .scopes("read", "write")
                 .resourceIds(resourceId)
