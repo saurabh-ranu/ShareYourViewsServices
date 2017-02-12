@@ -1,4 +1,4 @@
-package com.omnie.shareyourviewsservices.security.model;
+package com.omnie.shareyourviewsservice.security.model;
 
 
 public class AuthenticationResponse {

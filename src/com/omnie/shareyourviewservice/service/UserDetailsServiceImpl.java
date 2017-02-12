@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.omnie.shareyourviewservice.dao.PostHandleDAO;
 import com.omnie.shareyourviewservice.hibermapping.User;
-import com.omnie.shareyourviewsservices.security.model.SpringSecurityUser;
+import com.omnie.shareyourviewsservice.security.model.SpringSecurityUser;
 
 @Service(value = "userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
