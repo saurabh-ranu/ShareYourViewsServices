@@ -64,7 +64,7 @@ public class PostHandle {
 	public  @ResponseBody ResponseEntity<UserDetails> getAllPosts(){
 		ResponseEntity<UserDetails> responseEntity = null;
 		UserDetails userDetails = new UserDetails();
-		userDetails.setEmailId("test@test.test");
+		userDetails.setEmailId("test1@test.test");
 		userDetails.setUserName("testName");
 		UserTest userTest = new UserTest();
 		userTest.setTestName("testName");
