@@ -17,4 +17,5 @@
 	password : secret
 
 4. To Access the Resource
+
 	http://localhost:8080/ShareYourViewsServices/PostHandle/getAllPosts?access_token=youraccesstoken
