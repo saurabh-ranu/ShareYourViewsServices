@@ -71,7 +71,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
             .withClient("normal-app")
-<<<<<<< HEAD
+
                 .authorizedGrantTypes("password", "authorization_code", "implicit","refresh_token")
                 .authorities("ROLE_CLIENT")
                 .scopes("read", "write")
@@ -82,7 +82,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         .and()
             .withClient("trusted-app")
                 .authorizedGrantTypes("client_credentials", "password", "implicit","refresh_token")
-=======
+
                 .authorizedGrantTypes("password", "authorization_code", "implicit","refresh-token")
                 .authorities("ROLE_CLIENT")
                 .scopes("read", "write")
@@ -93,7 +93,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         .and()
             .withClient("trusted-app")
                 .authorizedGrantTypes("client_credentials", "password", "implicit","refresh-token")
->>>>>>> refs/remotes/origin/master
+
                 .authorities("ROLE_TRUSTED_CLIENT")
                 .scopes("read", "write")
                 .resourceIds(resourceId)
