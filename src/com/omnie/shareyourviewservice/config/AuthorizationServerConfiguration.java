@@ -77,22 +77,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .scopes("read", "write")
                 .resourceIds(resourceId)
                 .accessTokenValiditySeconds(accessTokenValiditySeconds)
-                
+       
                 
         .and()
             .withClient("trusted-app")
                 .authorizedGrantTypes("client_credentials", "password", "implicit","refresh_token")
-
-                .authorizedGrantTypes("password", "authorization_code", "implicit","refresh-token")
-                .authorities("ROLE_CLIENT")
-                .scopes("read", "write")
-                .resourceIds(resourceId)
-                .accessTokenValiditySeconds(accessTokenValiditySeconds)
-                
-                
-        .and()
-            .withClient("trusted-app")
-                .authorizedGrantTypes("client_credentials", "password", "implicit","refresh-token")
 
                 .authorities("ROLE_TRUSTED_CLIENT")
                 .scopes("read", "write")
