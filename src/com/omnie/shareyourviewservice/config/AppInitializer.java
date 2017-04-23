@@ -17,7 +17,7 @@ public class AppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext context) throws ServletException {
 		WebApplicationContext webAppContext = getAppContext();
 		context.addListener(new ContextLoaderListener(webAppContext));
-		
+		context.addFilter("/",new CorsFilter());
 		DispatcherServlet dispatcherServlet = new DispatcherServlet(webAppContext);
 		dispatcherServlet.setThrowExceptionIfNoHandlerFound(Boolean.TRUE);
 		ServletRegistration.Dynamic dispatcher = context.addServlet("DispatcherServlet", dispatcherServlet);
@@ -30,6 +30,7 @@ public class AppInitializer implements WebApplicationInitializer {
 	private WebApplicationContext getAppContext(){
 		AnnotationConfigWebApplicationContext annotationContext = new AnnotationConfigWebApplicationContext();
 		annotationContext.setConfigLocation("com.omnie.shareyourviewservice.config");
+		
 		return annotationContext;
 	}
 

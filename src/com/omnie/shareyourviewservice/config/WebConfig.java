@@ -9,6 +9,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,6 +31,16 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	public void addResourceHandlers(ResourceHandlerRegistry registry){
 		
 	}
+	
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/")
+			.allowedOrigins("*")
+			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+			.allowedHeaders("*")
+			.maxAge(3600);
+	}
+	
 	
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {

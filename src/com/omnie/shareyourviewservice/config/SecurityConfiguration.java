@@ -3,23 +3,27 @@ package com.omnie.shareyourviewservice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 @Configuration
 @EnableWebSecurity
-
+@EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
@@ -60,11 +64,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-		http
+		 http
 		.csrf().disable()
 		.anonymous().disable()
 	  	.authorizeRequests()
-	  	.antMatchers("/oauth/token").permitAll();
+	  	.antMatchers(HttpMethod.OPTIONS,"/oauth/token").permitAll()
+	    .and().addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);;
     }
 	
 	@Override

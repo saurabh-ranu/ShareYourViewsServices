@@ -56,7 +56,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
             .authenticationManager(authenticationManager)
             .accessTokenConverter(accessTokenConverter())
             .userApprovalHandler(userApprovalHandler)
-            .tokenServices(tokenServices(tokenStore()));
+            .tokenServices(tokenServices(tokenStore()))
+            ;
     }
     
   
@@ -64,7 +65,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer.tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_TRUSTED_CLIENT')")
-            .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')").realm(REALM+"/client");
+            .checkTokenAccess("hasAuthority('ROLE_CLIENT')").realm(REALM+"/client").authenticationEntryPoint(new CustomBasicAuthenticationEntryPoint()).addTokenEndpointAuthenticationFilter(new CorsFilter());;
     }
 
     @Override
@@ -103,6 +104,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return defaultTokenServices;
     }
     
+    /*@Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+          security.addTokenEndpointAuthenticationFilter(new CorsFilter());
+    }  
+    */
 
+    
     
 }

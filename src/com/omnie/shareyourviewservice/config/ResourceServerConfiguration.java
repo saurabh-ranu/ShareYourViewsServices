@@ -1,9 +1,8 @@
 package com.omnie.shareyourviewservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -31,12 +30,14 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     }
     @Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.
-		anonymous().disable()
+		http
+		.csrf().disable()
+		.anonymous().disable()
 		.requestMatchers().antMatchers("/PostHandle/**")
-		.and().authorizeRequests()
+		.and().authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
 		.antMatchers("/PostHandle/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-		.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+		.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler())
+		;
 	}
 
     
