@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices11;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 
 @Configuration
@@ -31,6 +32,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
 	public void configure(HttpSecurity http) throws Exception {
 		http
+		.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
 		.csrf().disable()
 		.anonymous().disable()
 		.requestMatchers().antMatchers("/PostHandle/**")

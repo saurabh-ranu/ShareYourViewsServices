@@ -59,7 +59,7 @@ public class User implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id")
 	public Userrole getUserrole() {
 		return this.userrole;
@@ -87,7 +87,7 @@ public class User implements java.io.Serializable {
 		this.enabled = enabled;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	public Set<UserProfile> getUserProfiles() {
 		return this.userProfiles;
 	}
@@ -96,7 +96,7 @@ public class User implements java.io.Serializable {
 		this.userProfiles = userProfiles;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	public Set<Comment> getComments() {
 		return this.comments;
 	}
@@ -105,7 +105,7 @@ public class User implements java.io.Serializable {
 		this.comments = comments;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	public Set<Post> getPosts() {
 		return this.posts;
 	}
