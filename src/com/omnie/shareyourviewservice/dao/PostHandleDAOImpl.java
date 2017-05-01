@@ -9,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.omnie.shareyourviewservice.hibermapping.Comment;
 import com.omnie.shareyourviewservice.hibermapping.Post;
@@ -30,7 +29,7 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	 * @return
 	 */
 	protected Session getSession() {
-		return syvsessionFactory.openSession();
+		return syvsessionFactory.getCurrentSession();
 	}
 
 	/**
@@ -77,13 +76,10 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 
 	@Override
 	public List<Post> getAllPost() {
-		Transaction tx = null;
-		Session session = getSession();
-
+		Session session = null;
 		try {
-			tx = session.beginTransaction();
-			@SuppressWarnings("unchecked")
-			List<Post> postList = getSession().createQuery("from com.omnie.shareyourviewservice.hibermapping.Post")
+			session = getSession();
+			List<Post> postList = session.createQuery("from com.omnie.shareyourviewservice.hibermapping.Post")
 					.list();
 			log.info("postList!!! " + postList);
 			for (Post post : postList) {
@@ -92,9 +88,6 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 			return postList;
 		} finally {
 			
-			if (null != tx) {
-				tx.commit();
-			}
 		}
 
 		// TODO Auto-generated method stub
@@ -125,10 +118,7 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 			// Post post = query.setParameter("postid", postId). ;
 			return post;
 		} finally {
-			if (null != session) {
-				session.flush();
-				session.close();
-			}
+			
 		}
 	}
 
@@ -136,7 +126,6 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	public User getUser(String userid) {
 		Session session = null;
 		List<User> userList = null;
-		Transaction tx = null;
 		try {
 			session = getSession();
 			Query query = session
@@ -145,9 +134,7 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 			// TODO Auto-generated method stub
 			System.out.println("userList " + userList);
 				} finally {
-			if (null != session) {
-				session.close();
-			}
+			
 		}
 		return (null!=userList &&userList.size() > 0) ? userList.get(0) : null;
 		
