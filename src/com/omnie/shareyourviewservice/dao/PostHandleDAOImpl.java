@@ -15,7 +15,7 @@ import com.omnie.shareyourviewservice.hibermapping.Comment;
 import com.omnie.shareyourviewservice.hibermapping.Post;
 import com.omnie.shareyourviewservice.hibermapping.User;
 
-@Transactional
+
 @Repository
 public class PostHandleDAOImpl implements PostHandleDAO {
 

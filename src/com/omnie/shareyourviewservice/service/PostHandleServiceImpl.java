@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.omnie.shareyourviewservice.beans.CommentBean;
 import com.omnie.shareyourviewservice.beans.PostBean;
@@ -33,6 +34,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 	/* (non-Javadoc)
 	 * @see com.omnie.shareyourviewservice.service.PostHandleServiceInterface#pushUserPost(com.omnie.shareyourviewservice.beans.PostBean)
 	 */
+	@Transactional
 	@Override
 	public void pushUserPost(PostBean bean) {
 		Post post = CloneBeanToDomain.clonePostBeanToPost(bean);
@@ -44,6 +46,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 	/* (non-Javadoc)
 	 * @see com.omnie.shareyourviewservice.service.PostHandleServiceInterface#pushUserCommentToPost(com.omnie.shareyourviewservice.beans.PostBean)
 	 */
+	@Transactional
 	@Override
 	public void pushUserCommentToPost(CommentBean commentBean) {
 		Post post = postHandleDAO.getPostByPostId(commentBean.getPostid());
@@ -63,7 +66,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 		return postHandleDAO.getAllPost();
 	}*/
 	
-	
+	@Transactional(readOnly=true)
 	public List<PostBean> getAllPostBean() {
 		List<PostBean> listPostBean = null;
 		Set<CommentBean> commentSet = null;
@@ -114,7 +117,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 		return postHandleDAO.getAllPostByUser(user);
 	}
 	*/
-	
+	@Transactional(readOnly=true)
 	@Override
 	public List<PostBean> getAllPostBeanByUser(String userid) {
 		List<PostBean> listPostBean = null;
@@ -154,7 +157,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 	}
 	
 	
-
+	@Transactional(readOnly=true)
 	@Override
 	public PostBean getPostByPostId(Long postid) {
 		Post post = postHandleDAO.getPostByPostId(postid);
@@ -181,7 +184,8 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 		postBean.setComments(commentSet);
 		return postBean;
 	}
-
+	
+	@Transactional(readOnly=true)
 	@Override
 	public User getUser(String userid) {
 		
