@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.omnie.shareyourviewservice.beans.CommentBean;
@@ -20,6 +22,7 @@ import com.omnie.shareyourviewservice.hibermapping.Comment;
 import com.omnie.shareyourviewservice.hibermapping.Post;
 import com.omnie.shareyourviewservice.hibermapping.User;
 import com.omnie.shareyourviewservice.utility.CloneBeanToDomain;
+import com.omnie.shareyourviewservice.utility.Constants;
 
 /**
  * @author Saurabh.srivastava
@@ -66,7 +69,8 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 		return postHandleDAO.getAllPost();
 	}*/
 	
-	@Transactional(readOnly=true)
+	@Cacheable(value = Constants.POSTCACHE)
+	@Transactional(readOnly=true,propagation=Propagation.REQUIRES_NEW)
 	public List<PostBean> getAllPostBean() {
 		List<PostBean> listPostBean = null;
 		Set<CommentBean> commentSet = null;
@@ -117,7 +121,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 		return postHandleDAO.getAllPostByUser(user);
 	}
 	*/
-	@Transactional(readOnly=true)
+	@Transactional(readOnly=true,propagation=Propagation.REQUIRES_NEW)
 	@Override
 	public List<PostBean> getAllPostBeanByUser(String userid) {
 		List<PostBean> listPostBean = null;
@@ -157,7 +161,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 	}
 	
 	
-	@Transactional(readOnly=true)
+	@Transactional(readOnly=true,propagation=Propagation.REQUIRES_NEW)
 	@Override
 	public PostBean getPostByPostId(Long postid) {
 		Post post = postHandleDAO.getPostByPostId(postid);
@@ -185,7 +189,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 		return postBean;
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional(readOnly=true,propagation=Propagation.REQUIRES_NEW)
 	@Override
 	public User getUser(String userid) {
 		
