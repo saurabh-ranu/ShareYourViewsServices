@@ -37,24 +37,9 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	 */
 	@Override
 	public void pushUserPost(Post post) {
-		Session session = null;
-		try {
-			session = getSession();
-			Transaction tx = session.beginTransaction();
-			session.save(post);
-			tx.commit();
-
-		} finally {
-			if (null != session) {
-				session.flush();
-				session.close();
-			}
-		}
-
-		// TODO Auto-generated method stub
-
+		getSession().save(post);
 	}
-
+		
 	@Override
 	public void pushUserCommentToPost(Comment comment) {
 		Session session = null;

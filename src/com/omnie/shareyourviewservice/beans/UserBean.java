@@ -1,14 +1,19 @@
 package com.omnie.shareyourviewservice.beans;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="user")
-public class UserBean{
+public class UserBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 953652457759998632L;
 	private String userId;
 	private RoleBean role;
 	private String userName;

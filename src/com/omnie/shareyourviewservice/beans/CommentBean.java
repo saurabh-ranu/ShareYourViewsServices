@@ -1,13 +1,19 @@
 package com.omnie.shareyourviewservice.beans;
 
+import java.io.Serializable;
+
 // Generated Jun 26, 2014 12:47:14 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="comment")
-public class CommentBean  {
+public class CommentBean implements Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1943743731511932627L;
 	private Long id;
 	private UserBean user;
 	private PostBean post;

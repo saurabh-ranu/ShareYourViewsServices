@@ -47,8 +47,7 @@ public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 	response.setHeader("Access-Control-Allow-Origin", "*");
 	response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
 	response.setHeader("Access-Control-Max-Age", "3600");
-	response.setHeader("Access-Control-Allow-Headers", "");
-	response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization");
+	response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, Content-Type, Access-Control-Allow-Headers");
 	if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
 		System.out.println("In Cors do filter method111"+request.getMethod());
 		response.setStatus(HttpServletResponse.SC_OK);

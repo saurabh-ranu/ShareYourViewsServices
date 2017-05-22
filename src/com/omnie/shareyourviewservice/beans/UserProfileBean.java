@@ -1,5 +1,7 @@
 package com.omnie.shareyourviewservice.beans;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -7,8 +9,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 // Generated Jun 26, 2014 12:47:14 PM by Hibernate Tools 3.4.0.CR1
 
 @XmlRootElement(name="userprofilebean")
-public class UserProfileBean  {
+public class UserProfileBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6693028918660235345L;
 	private long id;
 	private UserBean user;
 	private String name;

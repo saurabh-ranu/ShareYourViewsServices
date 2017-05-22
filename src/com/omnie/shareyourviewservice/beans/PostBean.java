@@ -1,5 +1,7 @@
 package com.omnie.shareyourviewservice.beans;
 
+import java.io.Serializable;
+
 // Generated Jun 26, 2014 12:47:14 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
@@ -11,7 +13,15 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="posts")
-public class PostBean  {
+public class PostBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7959004030131264711L;
+	/**
+	 * 
+	 */
 
 	private long id;
 	private UserBean user;

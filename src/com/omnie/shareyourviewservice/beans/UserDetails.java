@@ -1,5 +1,6 @@
 package com.omnie.shareyourviewservice.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -8,7 +9,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class UserDetails {
+public class UserDetails implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8634725587452421846L;
 	private String userName;
 	private String emailId;
 	private List<UserTest> userTest;

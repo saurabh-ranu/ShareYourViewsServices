@@ -1,6 +1,7 @@
 package com.omnie.shareyourviewservice.beans;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +11,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="role")
-public class RoleBean {
+public class RoleBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2643357196984406244L;
 	private Long id;
 	private String role;
 	private Set<UserBean> users = new HashSet<UserBean>(0);

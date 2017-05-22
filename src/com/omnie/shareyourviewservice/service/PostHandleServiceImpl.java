@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +22,7 @@ import com.omnie.shareyourviewservice.dao.PostHandleDAO;
 import com.omnie.shareyourviewservice.hibermapping.Comment;
 import com.omnie.shareyourviewservice.hibermapping.Post;
 import com.omnie.shareyourviewservice.hibermapping.User;
+import com.omnie.shareyourviewservice.hibermapping.UserProfile;
 import com.omnie.shareyourviewservice.utility.CloneBeanToDomain;
 import com.omnie.shareyourviewservice.utility.Constants;
 
@@ -37,9 +39,11 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 	/* (non-Javadoc)
 	 * @see com.omnie.shareyourviewservice.service.PostHandleServiceInterface#pushUserPost(com.omnie.shareyourviewservice.beans.PostBean)
 	 */
-	@Transactional
+	@CachePut(value = Constants.POSTCACHE)
+	@Transactional(propagation=Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
 	@Override
 	public void pushUserPost(PostBean bean) {
+		System.out.println("Description ! "+bean.getDescription());
 		Post post = CloneBeanToDomain.clonePostBeanToPost(bean);
 		post.setUser(postHandleDAO.getUser(bean.getUser().getUserId()));
 		postHandleDAO.pushUserPost(post);
@@ -88,6 +92,9 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 			postBean.setId(post.getId());
 			userBean = new UserBean();
 			userBean.setUserId(post.getUser().getUserId());
+			Set<UserProfile> postUserProfiles = post.getUser().getUserProfiles();
+			System.out.println("postUserProfiles"+postUserProfiles.size());
+			userBean.setUserName(postUserProfiles.iterator().next().getName());
 			postBean.setUser(userBean);
 			commentSet = new HashSet<CommentBean>();
 			for(Comment comment : post.getComments()){
@@ -96,6 +103,9 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 				commentBean.setId(comment.getId());
 				commentBean.setPostid(comment.getPost().getId());
 				userBean = new UserBean();
+				Set<UserProfile> userProfiles = comment.getUser().getUserProfiles();
+				System.out.println("commentUserProfiles"+userProfiles.size());
+				userBean.setUserName(userProfiles.iterator().next().getName());
 				userBean.setUserId(comment.getUser().getUserId());
 				commentBean.setUser(userBean);
 				commentSet.add(commentBean);
@@ -139,6 +149,10 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 			postBean.setImage(post.getImage());
 			postBean.setSubject(post.getSubject());
 			postBean.setId(post.getId());
+			userBean = new UserBean();
+			Set<UserProfile> postUserProfiles = post.getUser().getUserProfiles();
+			userBean.setUserName(postUserProfiles.iterator().next().getName());
+			postBean.setUser(userBean);
 			commentSet = new HashSet<CommentBean>();
 			for(Comment comment : post.getComments()){
 				commentBean = new CommentBean();
@@ -147,6 +161,8 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 				commentBean.setPostid(comment.getPost().getId());
 				userBean = new UserBean();
 				userBean.setUserId(comment.getUser().getUserId());
+				Set<UserProfile> userProfiles = comment.getUser().getUserProfiles();
+				userBean.setUserName(userProfiles.iterator().next().getName());
 				commentBean.setUser(userBean);
 				commentSet.add(commentBean);
 			}

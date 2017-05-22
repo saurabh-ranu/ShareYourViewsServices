@@ -33,7 +33,7 @@ public class PostHandle {
 	@Autowired
 	private PostHandleServiceInterface postHandleService;
 
-	@RequestMapping(value = "/pushUserPost", method = RequestMethod.POST,consumes={"application/xml", "application/json"},produces={"application/xml", "application/json"})
+	@RequestMapping(value = "/post", method = RequestMethod.POST,consumes={"application/xml", "application/json"},produces={"application/xml", "application/json"})
 	public @ResponseBody JaxbListWrapper<PostBean> pushUserPost(@RequestBody PostBean bean){
 		log.info("In pushUserPost !!!! "+bean);
 		postHandleService.pushUserPost(bean);
