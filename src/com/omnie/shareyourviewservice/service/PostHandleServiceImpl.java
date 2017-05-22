@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -39,7 +39,7 @@ public class PostHandleServiceImpl implements PostHandleServiceInterface {
 	/* (non-Javadoc)
 	 * @see com.omnie.shareyourviewservice.service.PostHandleServiceInterface#pushUserPost(com.omnie.shareyourviewservice.beans.PostBean)
 	 */
-	@CachePut(value = Constants.POSTCACHE)
+	@CacheEvict(value = Constants.POSTCACHE,allEntries=true)
 	@Transactional(propagation=Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
 	@Override
 	public void pushUserPost(PostBean bean) {
