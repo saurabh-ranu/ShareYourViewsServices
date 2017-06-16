@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.omnie.shareyourviewservice.hibermapping.Comment;
 import com.omnie.shareyourviewservice.hibermapping.Post;
@@ -28,8 +29,12 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	 * 
 	 * @return
 	 */
-	protected Session getSession() {
+	protected Session getCurrentSession() {
 		return syvsessionFactory.getCurrentSession();
+	}
+	
+	protected Session openSession() {
+		return syvsessionFactory.openSession();
 	}
 
 	/**
@@ -37,15 +42,30 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	 */
 	@Override
 	public void pushUserPost(Post post) {
-		getSession().save(post);
+		Session session = null;
+		try {
+			session = getCurrentSession();
+			Transaction tx = session.beginTransaction();
+			session.save(post);
+			tx.commit();
+
+		} finally {
+			if (null != session) {
+				session.flush();
+				session.close();
+			}
+		}
+
+		// TODO Auto-generated method stub
+
 	}
-		
+
 	@Override
 	public void pushUserCommentToPost(Comment comment) {
 		Session session = null;
 		Transaction tx = null;
 		try {
-			session = getSession();
+			session = getCurrentSession();
 			tx = session.beginTransaction();
 			session.save(comment);
 		} finally {
@@ -61,9 +81,11 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 
 	@Override
 	public List<Post> getAllPost() {
-		Session session = null;
+		Transaction tx = null;
+		Session session = getCurrentSession();
+
 		try {
-			session = getSession();
+			@SuppressWarnings("unchecked")
 			List<Post> postList = session.createQuery("from com.omnie.shareyourviewservice.hibermapping.Post")
 					.list();
 			log.info("postList!!! " + postList);
@@ -84,7 +106,7 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 		// TODO Auto-generated method stub
 		Session session = null;
 		try {
-			session = getSession();
+			session = getCurrentSession();
 			Query query = session.createQuery(
 					"from com.omnie.shareyourviewservice.hibermapping.Post where user_id =:user_id order by timestamp desc");
 			List<Post> postList = query.setParameter("user_id", user_id).list();
@@ -98,12 +120,15 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	public Post getPostByPostId(Long postId) {
 		Session session = null;
 		try {
-			session = getSession();
+			session = getCurrentSession();
 			Post post = (Post) session.get("com.omnie.shareyourviewservice.hibermapping.Post", postId);
 			// Post post = query.setParameter("postid", postId). ;
 			return post;
 		} finally {
-			
+			if (null != session) {
+				session.flush();
+				session.close();
+			}
 		}
 	}
 
@@ -111,15 +136,18 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 	public User getUser(String userid) {
 		Session session = null;
 		List<User> userList = null;
+		Transaction tx = null;
 		try {
-			session = getSession();
+			session = openSession();
 			Query query = session
 					.createQuery("from com.omnie.shareyourviewservice.hibermapping.User where user_id =:user_id");
 			userList = query.setParameter("user_id", userid).list();
 			// TODO Auto-generated method stub
 			System.out.println("userList " + userList);
 				} finally {
-			
+			if (null != session) {
+				session.close();
+			}
 		}
 		return (null!=userList &&userList.size() > 0) ? userList.get(0) : null;
 		

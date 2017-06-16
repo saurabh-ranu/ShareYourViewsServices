@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private PostHandleDAO postHandleDAO;
 
-    @Transactional
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	System.out.println("username "+username);
