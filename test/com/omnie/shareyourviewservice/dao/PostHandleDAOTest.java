@@ -28,6 +28,10 @@ public class PostHandleDAOTest {
 	@Test
 	public void testGetAllPosts(){
 		List<Post> listPost =  postHandleDAO.getAllPost();
+		for(Post post:listPost){
+			System.out.println(post);
+		}
+		
 		Assert.assertNotNull(listPost);;
 	}
 
