@@ -7,6 +7,6 @@ import com.omnie.shareyourviewservice.hibermapping.UserProfile;
 public interface UserProfileDAO {
 	
 	public User getUser(String userid);
-	public UserProfile registerUser(UserProfileBean userProfieBean);
+	public void registerUser(UserProfileBean userProfieBean);
 
 }

@@ -56,9 +56,11 @@ public class UserProfileDAOImpl implements UserProfileDAO {
 	 * @see com.omnie.shareyourviewservice.dao.UserProfileDAO#registerUser(com.omnie.shareyourviewservice.beans.UserProfileBean)
 	 */
 	@Override
-	public UserProfile registerUser(UserProfileBean userProfieBean) {
+	public void registerUser(UserProfileBean userProfieBean) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = null;
+		session = getSession();
+		session.save(userProfieBean);
 	}
 
 }
