@@ -15,6 +15,15 @@ public class UserBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 953652457759998632L;
 	private String userId;
+	private String password;
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	private RoleBean role;
 	private String userName;
 	private Set<UserProfileBean> userProfiles = new HashSet<UserProfileBean>(0);

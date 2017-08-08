@@ -45,15 +45,9 @@ public class PostHandleDAOImpl implements PostHandleDAO {
 		Session session = null;
 		try {
 			session = getCurrentSession();
-			Transaction tx = session.beginTransaction();
 			session.save(post);
-			tx.commit();
-
 		} finally {
-			if (null != session) {
-				session.flush();
-				session.close();
-			}
+			
 		}
 
 		// TODO Auto-generated method stub

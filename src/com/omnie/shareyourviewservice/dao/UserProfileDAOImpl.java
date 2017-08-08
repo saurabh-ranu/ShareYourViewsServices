@@ -9,15 +9,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.omnie.shareyourviewservice.beans.UserProfileBean;
 import com.omnie.shareyourviewservice.hibermapping.User;
-import com.omnie.shareyourviewservice.hibermapping.UserProfile;
 
 /**
  * @author Saurabh.srivastava
  *
  */
+@Repository
 public class UserProfileDAOImpl implements UserProfileDAO {
 
 	@Autowired
@@ -56,11 +57,11 @@ public class UserProfileDAOImpl implements UserProfileDAO {
 	 * @see com.omnie.shareyourviewservice.dao.UserProfileDAO#registerUser(com.omnie.shareyourviewservice.beans.UserProfileBean)
 	 */
 	@Override
-	public void registerUser(UserProfileBean userProfieBean) {
+	public void registerUser(User user) {
 		// TODO Auto-generated method stub
 		Session session = null;
 		session = getSession();
-		session.save(userProfieBean);
+		session.save(user);
 	}
 
 }

@@ -11,8 +11,6 @@ public interface PostHandleServiceInterface {
 
 	public void pushUserPost(PostBean bean);
 	public void pushUserCommentToPost(CommentBean comment);
-	//public List<Post> getAllPost();
-	//public List<Post> getAllPostByUser(UserBean userBean);
 	public PostBean getPostByPostId(Long postid);
 	public List<PostBean> getAllPostBean();
 	List<PostBean> getAllPostBeanByUser(String userid);
