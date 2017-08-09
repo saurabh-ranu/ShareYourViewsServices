@@ -90,7 +90,7 @@ public class ExceptionHandler {
 	}
 	
 	public static Object processServiceException(HttpServletRequest request, ServiceException ex){
-		
+		System.out.println("processServiceException "+ex);
 		Exception _ex = (Exception)ex.getCause();
 		String exMsg = null;
 		if(_ex instanceof InvocationTargetException){

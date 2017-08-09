@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.omnie.shareyourviews.framework.exception.ServiceException;
 import com.omnie.shareyourviewservice.beans.UserBean;
 import com.omnie.shareyourviewservice.beans.UserProfileBean;
 import com.omnie.shareyourviewservice.dao.UserProfileDAO;
@@ -24,7 +25,7 @@ public class UserProfileServiceImpl implements UserProfileServiceInterface {
 	@Override
 	public void registerUser(UserBean userBean) {
 		Set<UserProfile> userProfileSet = new HashSet<UserProfile>();
-		for(UserProfileBean userProfileBean : userBean.getUserProfiles()){
+		for (UserProfileBean userProfileBean : userBean.getUserProfiles()) {
 			UserProfile userProfile = new UserProfile();
 			userProfile.setAboutYou(userProfileBean.getAboutYou());
 			userProfile.setAddress(userProfileBean.getAddress());
@@ -43,17 +44,20 @@ public class UserProfileServiceImpl implements UserProfileServiceInterface {
 		user.setUserProfiles(userProfileSet);
 		userProfileDAO.registerUser(user);
 	}
-	
+
 	@Transactional
 	@Override
 	public UserBean getUser(String id) {
 		User user = userProfileDAO.getUser(id);
+		if (null == user) {
+			throw new ServiceException("User Not Found");
+		}
 		UserBean userBean = new UserBean();
 		userBean.setUserId(user.getUserId());
 		userBean.setUserName(user.getUserId());
 		Set<UserProfile> userProfileSet = user.getUserProfiles();
 		Set<UserProfileBean> userProfileBeanSet = new HashSet<UserProfileBean>();
-		for(UserProfile userProfile :userProfileSet){
+		for (UserProfile userProfile : userProfileSet) {
 			UserProfileBean userProfileBean = new UserProfileBean();
 			userProfileBean.setName(userProfile.getName());
 			userProfileBean.setId(userProfile.getId());
@@ -64,7 +68,7 @@ public class UserProfileServiceImpl implements UserProfileServiceInterface {
 		}
 		userBean.setUserProfiles(userProfileBeanSet);
 		return userBean;
-		
+
 	}
 
 }
